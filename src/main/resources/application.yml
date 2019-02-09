@@ -1,0 +1,8 @@
+micronaut:
+  application:
+    name: blog
+
+endpoints:
+  info:
+    enabled: true
+    sensitive: false
