@@ -1,8 +1,34 @@
 micronaut:
   application:
     name: blog
-
+  metrics:
+    enabled: true
+  security:
+    enabled: true
+    endpoints:
+      login:
+        enabled: true
+      oauth:
+        enabled: true
+    token:
+      jwt:
+        enabled: true
+        signatures:
+          secret:
+            generator:
+              secret: MTkyNjBmNDUxNWVlY2ZlMTNjZTU2N2ExNWU2MDlmNTM1N2QxY2NiNTdkMTgxZjUwMjUxOWZlM2QxZGZhMzRhNmM5ODI4YzhhMzVlN2IwOWVhOTU1OWUyNzFjMWE3NzA3MDdlNTk0ZGY5OWJmODliNzNlODAzNmEwN2I0MjZjZjc=
+              base64: true
+              jws-algorithm: HS512
 endpoints:
   info:
     enabled: true
     sensitive: false
+  health:
+    enabled: true
+    sensitive: false
+  routes:
+    enabled: true
+    sensitive: false
+
+mongodb:
+  uri: mongodb://localhost:27017/blog

@@ -34,11 +34,16 @@ dependencies {
     compile "io.micronaut:micronaut-runtime"
     compile "io.micronaut:micronaut-http-client"
     compile "io.micronaut:micronaut-http-server-netty"
+    compile group: 'org.modelmapper', name: 'modelmapper', version: '0.7.5'
     compile "io.micronaut:micronaut-management"
+    compile "io.micronaut.configuration:micronaut-micrometer-core"
+    compile "io.micronaut.configuration:micronaut-micrometer-registry-prometheus"
+    compile "io.micronaut:micronaut-security-jwt"
+    compile 'io.micronaut.configuration:micronaut-mongo-reactive'
     compileOnly "io.micronaut:micronaut-inject-java"
     runtime "ch.qos.logback:logback-classic:1.2.3"
-
-
+    compileOnly 'org.projectlombok:lombok:1.18.4'
+    annotationProcessor 'org.projectlombok:lombok:1.18.4'
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.3.1'
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.3.1'
     testCompile "io.micronaut:micronaut-inject-java"

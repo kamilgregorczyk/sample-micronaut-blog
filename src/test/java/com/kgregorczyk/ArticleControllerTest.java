@@ -1,16 +1,16 @@
 package com.kgregorczyk;
 
-import static com.google.common.truth.Truth.assertThat;
-
+import com.kgregorczyk.model.Article;
 import io.micronaut.context.ApplicationContext;
-import io.micronaut.http.HttpRequest;
 import io.micronaut.http.client.HttpClient;
 import io.micronaut.runtime.server.EmbeddedServer;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
+import org.modelmapper.Conditions;
+import org.modelmapper.ModelMapper;
 
-public class HelloControllerTest {
+public class ArticleControllerTest {
 
   private static EmbeddedServer server;
   private static HttpClient client;
@@ -33,13 +33,18 @@ public class HelloControllerTest {
 
   @Test
   public void testHello() {
-    // given
-    HttpRequest request = HttpRequest.GET("/");
+    var article1 = new Article();
+    var article2 = new Article();
 
-    // when
-    String body = client.toBlocking().retrieve(request);
+    article1.setTitle("1");
+    article1.setDescription("1");
 
-    // then
-    assertThat(body).isEqualTo("Hello World");
+    article2.setTitle("2");
+    var modelMapper = new ModelMapper();
+    modelMapper.getConfiguration().setPropertyCondition(Conditions.isNotNull());
+    modelMapper.map(article2, article1);
+
+    assert article1.getTitle().equals("2");
+    assert article1.getDescription().equals("1");
   }
 }
