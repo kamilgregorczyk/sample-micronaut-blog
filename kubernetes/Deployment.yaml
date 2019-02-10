@@ -1,0 +1,44 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: micronaut-blog
+  namespace: micronaut-blog
+  labels:
+    app: micronaut-blog
+spec:
+  replicas: 1
+  template:
+    metadata:
+      name: micronaut-blog
+      labels:
+        app: micronaut-blog
+    spec:
+      containers:
+        - name: micronaut-blog
+          image: uniqe15/micronaut-blog:0.8
+          imagePullPolicy: IfNotPresent
+          env:
+            - name: JWT_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: secrets
+                  key: jwt-secret
+            - name: MONGO_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: mongo-mongodb
+                  key: mongodb-root-password
+            - name: MONGO_USER
+              valueFrom:
+                configMapKeyRef:
+                  name: configs
+                  key: user
+            - name: MONGO_HOST
+              valueFrom:
+                configMapKeyRef:
+                  name: configs
+                  key: host
+      restartPolicy: Always
+  selector:
+    matchLabels:
+      app: micronaut-blog

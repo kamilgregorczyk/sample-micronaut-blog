@@ -1,0 +1,8 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: configs
+  namespace: micronaut-blog
+data:
+  user: root
+  host: mongo-mongodb.micronaut-blog.svc.cluster.local:27017

@@ -16,8 +16,7 @@ micronaut:
         signatures:
           secret:
             generator:
-              secret: MTkyNjBmNDUxNWVlY2ZlMTNjZTU2N2ExNWU2MDlmNTM1N2QxY2NiNTdkMTgxZjUwMjUxOWZlM2QxZGZhMzRhNmM5ODI4YzhhMzVlN2IwOWVhOTU1OWUyNzFjMWE3NzA3MDdlNTk0ZGY5OWJmODliNzNlODAzNmEwN2I0MjZjZjc=
-              base64: true
+              secret: ${JWT_SECRET:aaaa}
               jws-algorithm: HS512
 endpoints:
   info:
@@ -31,4 +30,6 @@ endpoints:
     sensitive: false
 
 mongodb:
-  uri: mongodb://localhost:27017/blog
+  uri: mongodb://${MONGO_USER:root}:${MONGO_PASSWORD:root}@${MONGO_HOST:`localhost:27017`}
+
+
