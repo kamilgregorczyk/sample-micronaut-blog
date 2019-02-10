@@ -30,6 +30,6 @@ endpoints:
     sensitive: false
 
 mongodb:
-  uri: mongodb://${MONGO_USER:root}:${MONGO_PASSWORD:root}@${MONGO_HOST:`localhost:27017`}
+  uri: ${MONGO_URI:`mongodb://root:root@localhost:27017`}
 
 
