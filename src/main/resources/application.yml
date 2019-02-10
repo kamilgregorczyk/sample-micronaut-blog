@@ -3,6 +3,9 @@ micronaut:
     name: blog
   metrics:
     enabled: true
+    export:
+      prometheus:
+        enabled: true
   security:
     enabled: true
     endpoints:
@@ -22,6 +25,10 @@ endpoints:
   info:
     enabled: true
     sensitive: false
+  metrics:
+    enabled: true
+  prometheus:
+    enabled: true
   health:
     enabled: true
     sensitive: false
