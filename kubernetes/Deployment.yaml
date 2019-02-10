@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
         - name: micronaut-blog
-          image: uniqe15/micronaut-blog:0.12
+          image: uniqe15/micronaut-blog:0.13
           imagePullPolicy: IfNotPresent
           env:
             - name: JWT_SECRET
@@ -23,11 +23,21 @@ spec:
                 secretKeyRef:
                   name: secrets
                   key: jwt-secret
-            - name: MONGO_URI
+            - name: MONGO_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: mongo-mongodb
+                  key: mongodb-root-password
+            - name: MONGO_USER
               valueFrom:
                 configMapKeyRef:
                   name: configs
-                  key: mongo-uri
+                  key: user
+            - name: MONGO_HOST
+              valueFrom:
+                configMapKeyRef:
+                  name: configs
+                  key: host
       restartPolicy: Always
   selector:
     matchLabels:

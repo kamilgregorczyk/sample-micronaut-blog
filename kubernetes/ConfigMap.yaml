@@ -4,4 +4,5 @@ metadata:
   name: configs
   namespace: micronaut-blog
 data:
-  mongo-uri: mongodb://mongo-mongodb-replicaset-0.mongo-mongodb-replicaset:27017,mongo-mongodb-replicaset-1.mongo-mongodb-replicaset:27017,mongo-mongodb-replicaset-2.mongo-mongodb-replicaset:27017
+  user: root
+  host: mongo-mongodb.micronaut-blog.svc.cluster.local:27017

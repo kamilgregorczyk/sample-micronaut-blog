@@ -3,9 +3,13 @@ kind: Service
 metadata:
   name: micronaut-blog
   namespace: micronaut-blog
+  labels:
+    http-app: true
 spec:
   selector:
     app: micronaut-blog
+
   ports:
-    - port: 8080
+    - name: http-server
+      port: 8080
   type: NodePort

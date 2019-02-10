@@ -1,0 +1,15 @@
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: micronaut-blog
+  namespace: micronaut-blog
+spec:
+  selector:
+    matchLabels:
+      app: micronaut-blog
+  namespaceSelector:
+    matchNames:
+      - micronaut-blog
+  endpoints:
+    - port: http-server
+      interval: 10s
