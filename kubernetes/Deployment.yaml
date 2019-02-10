@@ -6,7 +6,7 @@ metadata:
   labels:
     app: micronaut-blog
 spec:
-  replicas: 3
+  replicas: 1
   template:
     metadata:
       name: micronaut-blog
@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
         - name: micronaut-blog
-          image: uniqe15/micronaut-blog:0.10
+          image: uniqe15/micronaut-blog:0.11
           imagePullPolicy: IfNotPresent
           env:
             - name: JWT_SECRET
