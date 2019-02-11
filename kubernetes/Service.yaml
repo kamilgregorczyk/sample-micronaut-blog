@@ -4,7 +4,7 @@ metadata:
   name: micronaut-blog
   namespace: micronaut-blog
   labels:
-    http-app: true
+    app: micronaut-blog
 spec:
   selector:
     app: micronaut-blog

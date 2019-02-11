@@ -2,14 +2,31 @@ apiVersion: monitoring.coreos.com/v1
 kind: ServiceMonitor
 metadata:
   name: micronaut-blog
-  namespace: micronaut-blog
+  namespace: monitoring
+  labels:
+    prometheus: kube-prometheus
 spec:
   selector:
     matchLabels:
       app: micronaut-blog
-  namespaceSelector:
-    matchNames:
-      - micronaut-blog
+    namespaceSelector:
+      matchNames:
+        - micronaut-blog
   endpoints:
     - port: http-server
-      interval: 10s
+      interval: 30s
+
+---
+
+apiVersion: monitoring.coreos.com/v1
+kind: Prometheus
+metadata:
+  name: prometheus
+  namespace: monitoring
+spec:
+  serviceMonitorSelector:
+    matchLabels:
+      prometheus: kube-prometheus
+    namespaceSelector:
+      matchNames:
+        - micronaut-blog

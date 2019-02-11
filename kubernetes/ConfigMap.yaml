@@ -5,4 +5,4 @@ metadata:
   namespace: micronaut-blog
 data:
   user: root
-  host: mongo-mongodb.micronaut-blog.svc.cluster.local:27017
+  host: mongo-mongodb.micronaut-blog:27017

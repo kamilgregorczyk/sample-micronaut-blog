@@ -25,6 +25,9 @@ endpoints:
   info:
     enabled: true
     sensitive: false
+    details-visible: ANONYMOUS
+    url:
+      enabled: true
   metrics:
     enabled: true
   prometheus:

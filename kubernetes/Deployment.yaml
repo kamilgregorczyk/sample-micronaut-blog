@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
         - name: micronaut-blog
-          image: uniqe15/micronaut-blog:0.13
+          image: uniqe15/micronaut-blog:0.14
           imagePullPolicy: IfNotPresent
           env:
             - name: JWT_SECRET
@@ -38,6 +38,12 @@ spec:
                 configMapKeyRef:
                   name: configs
                   key: host
+          livenessProbe:
+            httpGet:
+              path: /health
+              port: 8080
+            initialDelaySeconds: 3
+            periodSeconds: 3
       restartPolicy: Always
   selector:
     matchLabels:
