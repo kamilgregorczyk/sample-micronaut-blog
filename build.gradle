@@ -11,7 +11,7 @@ apply plugin: "application"
 apply plugin: "java"
 apply plugin: "com.gorylenko.gradle-git-properties"
 
-version "0.15"
+version "0.17"
 group "com.kgregorczyk"
 
 repositories {
