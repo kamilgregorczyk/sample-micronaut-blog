@@ -4,4 +4,5 @@ metadata:
   name: configs
   namespace: micronaut-blog
 data:
-  mongo-uri: mongodb://mongo-mongodb:27017
+  user: root
+  host: mongo-mongodb.micronaut-blog:27017

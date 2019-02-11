@@ -6,7 +6,7 @@ metadata:
   labels:
     app: micronaut-blog
 spec:
-  replicas: 1
+  replicas: 2
   template:
     metadata:
       name: micronaut-blog
@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
         - name: micronaut-blog
-          image: uniqe15/micronaut-blog:0.17
+          image: uniqe15/micronaut-blog:0.20
           imagePullPolicy: IfNotPresent
           env:
             - name: JWT_SECRET
@@ -23,17 +23,27 @@ spec:
                 secretKeyRef:
                   name: secrets
                   key: jwt-secret
-            - name: MONGO_URI
+            - name: MONGO_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: mongo-mongodb
+                  key: mongodb-root-password
+            - name: MONGO_USER
               valueFrom:
                 configMapKeyRef:
                   name: configs
-                  key: mongo-uri
-#          livenessProbe:
-#            httpGet:
-#              path: /health
-#              port: 8080
-#            initialDelaySeconds: 3
-#            periodSeconds: 3
+                  key: user
+            - name: MONGO_HOST
+              valueFrom:
+                configMapKeyRef:
+                  name: configs
+                  key: host
+          livenessProbe:
+            httpGet:
+              path: /health
+              port: 8080
+            initialDelaySeconds: 3
+            periodSeconds: 3
       restartPolicy: Always
   selector:
     matchLabels:
