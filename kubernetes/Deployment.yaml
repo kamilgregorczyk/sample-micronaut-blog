@@ -6,7 +6,7 @@ metadata:
   labels:
     app: micronaut-blog
 spec:
-  replicas: 5
+  replicas: 4
   template:
     metadata:
       name: micronaut-blog

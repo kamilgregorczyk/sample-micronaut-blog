@@ -8,8 +8,7 @@ metadata:
 spec:
   selector:
     app: micronaut-blog
-
   ports:
     - name: http-server
       port: 8080
-  type: NodePort
+  type: LoadBalancer
