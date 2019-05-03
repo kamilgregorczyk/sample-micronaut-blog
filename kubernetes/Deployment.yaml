@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
         - name: micronaut-blog
-          image: uniqe15/micronaut-blog:0.23
+          image: uniqe15/micronaut-blog:0.24
           imagePullPolicy: IfNotPresent
           env:
             - name: JWT_SECRET
