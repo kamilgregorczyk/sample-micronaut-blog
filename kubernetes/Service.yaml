@@ -11,4 +11,4 @@ spec:
   ports:
     - name: http-server
       port: 8080
-  type: LoadBalancer
+  type: NodePort

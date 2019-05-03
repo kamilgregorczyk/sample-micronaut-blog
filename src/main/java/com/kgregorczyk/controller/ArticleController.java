@@ -29,7 +29,7 @@ import org.modelmapper.Conditions;
 import org.modelmapper.ModelMapper;
 
 @Validated
-@Controller("/articles")
+@Controller("/api/articles")
 class ArticleController {
   private final ArticleRepository articleRepository;
   private final ModelMapper modelMapper;

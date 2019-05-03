@@ -4,7 +4,7 @@ import io.micronaut.http.annotation.Controller;
 import io.micronaut.http.annotation.Get;
 import io.micronaut.security.annotation.Secured;
 
-@Controller()
+@Controller("/api")
 public class IndexController {
 
   @Get

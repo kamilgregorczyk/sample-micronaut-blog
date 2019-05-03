@@ -9,7 +9,7 @@ micronaut:
         step: PT1M
         descriptions: true
   security:
-    enabled: false
+    enabled: true
     endpoints:
       login:
         enabled: true
@@ -38,11 +38,14 @@ endpoints:
   health:
     enabled: true
     sensitive: false
+  beans:
+    enabled: true
+    sensitive: false
   routes:
     enabled: true
     sensitive: false
 
 mongodb:
-  uri: ${MONGO_URI:`mongodb://root:root@localhost:27017`}
+  uri: mongodb://${MONGO_USER:root}:${MONGO_PASSWORD:root}@${MONGO_HOST:`localhost:27017`}
 
 
