@@ -1,8 +1,10 @@
 package com.kgregorczyk.controller;
 
+import static io.micronaut.security.rules.SecurityRule.IS_ANONYMOUS;
+
 import com.kgregorczyk.dto.ArticleDTO;
 import com.kgregorczyk.model.Article;
-import com.kgregorczyk.service.ArticleService;
+import com.kgregorczyk.service.ArticleRepository;
 import com.mongodb.client.result.DeleteResult;
 import com.mongodb.client.result.UpdateResult;
 import com.mongodb.reactivestreams.client.Success;
@@ -15,6 +17,7 @@ import io.micronaut.http.annotation.Post;
 import io.micronaut.http.annotation.Put;
 import io.micronaut.http.annotation.Status;
 import io.micronaut.security.annotation.Secured;
+import io.micronaut.security.rules.SecurityRule;
 import io.micronaut.validation.Validated;
 import io.reactivex.Flowable;
 import io.reactivex.Maybe;
@@ -28,39 +31,39 @@ import org.modelmapper.ModelMapper;
 @Validated
 @Controller("/articles")
 class ArticleController {
-  private final ArticleService articleService;
+  private final ArticleRepository articleRepository;
   private final ModelMapper modelMapper;
 
   @Inject
-  ArticleController(ArticleService articleService) {
-    this.articleService = articleService;
+  ArticleController(ArticleRepository articleRepository) {
+    this.articleRepository = articleRepository;
     this.modelMapper = new ModelMapper();
     this.modelMapper.getConfiguration().setPropertyCondition(Conditions.isNotNull());
   }
 
-  @Secured("isAnonymous()")
   @Get
+  @Secured(IS_ANONYMOUS)
   Flowable<Article> getArticles() {
-    return articleService.findAllArticles();
+    return articleRepository.findAllArticles();
   }
 
-  @Secured("isAnonymous()")
   @Post
   @Status(HttpStatus.CREATED)
+  @Secured(IS_ANONYMOUS)
   Single<Success> createArticle(@Body @Valid ArticleDTO articleDTO) {
-    return articleService.save(modelMapper.map(articleDTO, Article.class));
+    return articleRepository.save(modelMapper.map(articleDTO, Article.class));
   }
 
-  @Secured("isAnonymous()")
   @Get("/{id}")
+  @Secured("isAnonymous()")
   Maybe<Article> getArticle(String id) {
-    return articleService.findById(id);
+    return articleRepository.findById(id);
   }
 
-  @Secured("isAnonymous()")
   @Put("/{id}")
+  @Secured(SecurityRule.IS_ANONYMOUS)
   Maybe<Single<UpdateResult>> updateArticle(String id, @Body ArticleDTO articleDTO) {
-    return articleService
+    return articleRepository
         .findById(id)
         .isEmpty()
         .flatMapMaybe(
@@ -73,10 +76,10 @@ class ArticleController {
             });
   }
 
-  @Secured("isAnonymous()")
   @Delete("/{id}")
+  @Secured(SecurityRule.IS_ANONYMOUS)
   Maybe<DeleteResult> deleteArticle(String id) {
-    return articleService
+    return articleRepository
         .deleteById(id)
         .flatMap(
             deleteResult ->
@@ -84,12 +87,12 @@ class ArticleController {
   }
 
   private Maybe<Single<UpdateResult>> mergeAndUpdateArticle(String id, ArticleDTO articleDTO) {
-    return articleService
+    return articleRepository
         .findById(id)
         .map(
             articleFromDb -> {
               modelMapper.map(articleDTO, articleFromDb);
-              return articleService.update(new ObjectId(id), articleFromDb);
+              return articleRepository.update(new ObjectId(id), articleFromDb);
             });
   }
 }

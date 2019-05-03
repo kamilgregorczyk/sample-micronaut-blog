@@ -10,10 +10,10 @@ import io.micronaut.management.endpoint.annotation.Endpoint;
 import io.micronaut.security.annotation.Secured;
 import javax.inject.Inject;
 
-@Endpoint(value = "metrics", defaultSensitive = false)
-@Controller("/metrics")
-@RequiresMetrics
-@Replaces(MetricsEndpoint.class)
+//@Endpoint(value = "metrics", defaultSensitive = false)
+//@Controller("/metrics")
+//@RequiresMetrics
+//@Replaces(MetricsEndpoint.class)
 public class PrometheusMetricsEndpoint {
 
   private final PrometheusMeterRegistry registry;

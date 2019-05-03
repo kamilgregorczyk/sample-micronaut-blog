@@ -6,8 +6,10 @@ micronaut:
     export:
       prometheus:
         enabled: true
+        step: PT1M
+        descriptions: true
   security:
-    enabled: true
+    enabled: false
     endpoints:
       login:
         enabled: true
@@ -32,6 +34,7 @@ endpoints:
     enabled: true
   prometheus:
     enabled: true
+    sensitive: false
   health:
     enabled: true
     sensitive: false

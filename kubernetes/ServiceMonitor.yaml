@@ -24,9 +24,5 @@ metadata:
   name: prometheus
   namespace: monitoring
 spec:
-  serviceMonitorSelector:
-    matchLabels:
-      prometheus: kube-prometheus
-    namespaceSelector:
-      matchNames:
-        - monitoring
+  serviceMonitorNamespaceSelector: {}
+  serviceMonitorSelector: {}

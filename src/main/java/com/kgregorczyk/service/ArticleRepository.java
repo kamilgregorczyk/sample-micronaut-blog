@@ -17,14 +17,14 @@ import org.bson.types.ObjectId;
 import org.reactivestreams.Publisher;
 
 @Singleton
-public class ArticleService {
+public class ArticleRepository {
   private static final ObjectMapper OBJECT_MAPPER = new ObjectMapper();
   private static final String DATABASE = "blog";
   private static final String COLLECTION = "articles";
 
   private final MongoClient mongoClient;
 
-  public ArticleService(MongoClient mongoClient) {
+  public ArticleRepository(MongoClient mongoClient) {
     this.mongoClient = mongoClient;
   }
 
