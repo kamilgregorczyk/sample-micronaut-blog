@@ -23,11 +23,6 @@ spec:
                 secretKeyRef:
                   name: secrets
                   key: jwt-secret
-            - name: MONGO_URI
-              valueFrom:
-                configMapKeyRef:
-                  name: configs
-                  key: uri
             - name: MONGO_PASSWORD
               valueFrom:
                 secretKeyRef:
@@ -38,6 +33,11 @@ spec:
                 configMapKeyRef:
                   name: configs
                   key: host
+            - name: MONGO_USER
+              valueFrom:
+                configMapKeyRef:
+                  name: configs
+                  key: user
           livenessProbe:
             httpGet:
               path: /health
