@@ -1,0 +1,264 @@
+{
+	"info": {
+		"_postman_id": "1fd4135a-3d23-4366-9d40-834dadc36674",
+		"name": "Micronaut Blog",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Login",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"username\": \"sherlock\",\n\t\"password\": \"password\"\n}"
+				},
+				"url": {
+					"raw": "http://{{url}}/login",
+					"protocol": "http",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "List Articles",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJzaGVybG9jayIsIm5iZiI6MTU0OTczNTcxNiwicm9sZXMiOlsiUk9MRV9VU0VSIiwiUk9MRV9BRE1JTiJdLCJpc3MiOiJibG9nIiwiaWQiOiIxIiwiZXhwIjoxNTQ5NzM5MzE2LCJpYXQiOjE1NDk3MzU3MTZ9.n_33Vof6QHzjO_KrIs8h-ErQUY_K7lN5KinDdf1Y1Y6iWjO_q4yQExHUn3jR5-IUIaYlbJmQDOfKaHNIuIChEQ",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://{{url}}/articles",
+					"protocol": "http",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"articles"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create Article",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "c57c74ae-d2f3-4a4f-aa61-0831718899fe",
+						"exec": [
+							"pm.sendRequest({",
+							"    \"url\": \"http://\" + pm.environment.get(\"url\") + \"/login\",",
+							"    \"method\": \"POST\",",
+							"    \"mode\": \"raw\",",
+							"    \"body\": JSON.stringify({'username': 'sherlock','password': 'password'}),",
+							"    header: {",
+							"        'content-type': 'application/json'",
+							"    }",
+							"    },",
+							"    function (err, response) {",
+							"    var accessToken = response.json()[\"access_token\"]",
+							"    console.log(\"Access Token:\" + accessToken);",
+							"    pm.environment.set(\"access_token\", accessToken);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"type": "text",
+						"value": "Bearer {{access_token}}"
+					},
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"title\": \"Some title\",\n\t\"shortDescription\": \"Some description short\",\n\t\"description\": \"lorem ipsum\"\n}"
+				},
+				"url": {
+					"raw": "http://{{url}}/api/articles",
+					"protocol": "http",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"articles"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update Article",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Authorization",
+						"type": "text",
+						"value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJzaGVybG9jayIsIm5iZiI6MTU0OTczNzU5OCwicm9sZXMiOlsiUk9MRV9VU0VSIiwiUk9MRV9BRE1JTiJdLCJpc3MiOiJibG9nIiwiaWQiOiIxIiwiZXhwIjoxNTQ5NzQxMTk4LCJpYXQiOjE1NDk3Mzc1OTh9.GMhAxs0kYlzPbgBYKd3VjYnKZ7e-LsTvYNLyh6VrjrQylvtJqENza-p2BI7Lxt8B2XwdCP_J_Y_ddkOsefjEEA"
+					},
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"title\": \"aa23\",\n\t\"description\": \"aaaaaaa2\"\n}"
+				},
+				"url": {
+					"raw": "http://{{url}}/articles/5c5f57851059bedee74ab3ad",
+					"protocol": "http",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"articles",
+						"5c5f57851059bedee74ab3ad"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete Article",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "eeab1567-648f-496a-828f-108c10938134",
+						"exec": [
+							"pm.sendRequest({",
+							"        \"url\": \"http://\" + pm.environment.get(\"url\") + \"/login\",",
+							"        \"method\": \"POST\",",
+							"        \"mode\": \"raw\",",
+							"        \"body\": JSON.stringify({",
+							"            'username': 'sherlock',",
+							"            'password': 'password'",
+							"        }),",
+							"        header: {",
+							"            'content-type': 'application/json'",
+							"        }",
+							"    },",
+							"    function(err, response) {",
+							"        var accessToken = response.json()[\"access_token\"]",
+							"        console.log(\"Access Token:\" + accessToken);",
+							"        pm.environment.set(\"access_token\", accessToken);",
+							"    }",
+							");"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Authorization",
+						"type": "text",
+						"value": "Bearer {{access_token}}"
+					},
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"title\": \"aa\"\t\n}"
+				},
+				"url": {
+					"raw": "http://{{url}}/api/articles/5ccc9692459d73e8f841c14e",
+					"protocol": "http",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"articles",
+						"5ccc9692459d73e8f841c14e"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Article",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"type": "text",
+						"value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJzaGVybG9jayIsIm5iZiI6MTU0OTczNzU5OCwicm9sZXMiOlsiUk9MRV9VU0VSIiwiUk9MRV9BRE1JTiJdLCJpc3MiOiJibG9nIiwiaWQiOiIxIiwiZXhwIjoxNTQ5NzQxMTk4LCJpYXQiOjE1NDk3Mzc1OTh9.GMhAxs0kYlzPbgBYKd3VjYnKZ7e-LsTvYNLyh6VrjrQylvtJqENza-p2BI7Lxt8B2XwdCP_J_Y_ddkOsefjEEA"
+					},
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\n}"
+				},
+				"url": {
+					"raw": "http://{{url}}/articles/5c5f57851059bedee74ab3ad",
+					"protocol": "http",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"articles",
+						"5c5f57851059bedee74ab3ad"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
