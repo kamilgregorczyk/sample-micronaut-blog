@@ -32,12 +32,22 @@ spec:
               valueFrom:
                 configMapKeyRef:
                   name: configs
-                  key: host
+                  key: mongo-host
             - name: MONGO_USER
               valueFrom:
                 configMapKeyRef:
                   name: configs
-                  key: user
+                  key: mongo-user
+            - name: JAEGER_HOST
+              valueFrom:
+                configMapKeyRef:
+                  name: configs
+                  key: jaeger-host
+            - name: JAEGER_PORT
+              valueFrom:
+                configMapKeyRef:
+                  name: configs
+                  key: jaeger-port
           livenessProbe:
             httpGet:
               path: /health

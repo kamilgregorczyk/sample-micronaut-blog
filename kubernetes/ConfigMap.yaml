@@ -4,5 +4,7 @@ metadata:
   name: configs
   namespace: micronaut-blog
 data:
-  user: root
-  host: mongo-mongodb.micronaut-blog:27017
+  mongo-user: root
+  mongo-host: mongo-mongodb.micronaut-blog:27017
+  jaeger-host: jaeger-jaeger.monitoring
+  jaeger-port: 5775

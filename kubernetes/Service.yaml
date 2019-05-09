@@ -5,6 +5,10 @@ metadata:
   namespace: micronaut-blog
   labels:
     app: micronaut-blog
+  annotations:
+    prometheus.io/scrape: 'true'
+    prometheus.io/path: '/prometheus'
+    prometheus.io/port:  '8080'
 spec:
   selector:
     app: micronaut-blog
